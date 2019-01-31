@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Movies</title>
+  <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+</br>
+<div>
+  <a href="/" class="btn btn-primary">home</a>
+  <h2>[[${yourMovie.getTitle()}]]</h2>
+  <a th:href="${'/similar?id=' + yourMovie.getId()}" class="btn btn-info">Find similar movies!</a>
+  <table class="table">
+    <thead>
+    <th>Movie name</th>
+    <th>Movie release year</th>
+    <th>Movie Overview</th>
+    <th>popularity</th>
+    <th>runtime</th>
+    <th>budget</th>
+    <th>revenue</th>
+    <th>original language</th>
+    <th>homepage</th>
+    <th>Vote average</th>
+
+    </thead>
+    <tbody>
+    <td th:text="${yourMovie.getTitle()}"></td>
+    <td th:text="${yourMovie.getReleaseDate()}"></td>
+    <td th:text="${yourMovie.getOverview()}"></td>
+    <td th:text="${yourMovie.popularity}"></td>
+    <td th:text="${yourMovie.getRuntime()}"></td>
+    <td th:text="${#numbers.formatCurrency(yourMovie.getBudget())}"></td>
+    <td th:text="${#numbers.formatCurrency(yourMovie.getRevenue())}"></td>
+    <td th:text="${yourMovie.getOriginalLanguage()}"></td>
+    <td><a th:href=" ${yourMovie.getHomepage()}" target="_blank">Movie's homepage</a>
+    </td>
+    <td th:text="${yourMovie.voteAverage}"></td>
+
+    <td><img th:src="${'http://image.tmdb.org/t/p/w342/' + yourMovie.getPosterPath()}"></td>
+    </tbody>
+  </table>
+  <h3>Genres:</h3>
+  <ul th:each="genre : ${yourMovie.genres}">
+    <li th:text="${genre.getName()}">
+    </li>
+  </ul>
+  <h3>Cast:</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>image</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="genre : ${yourMovie.getCast()}">
+      <td><a th:href="${'https://www.themoviedb.org/person/' + genre.getId()}">[[${genre.getName()}]]</a></td>
+      <td><img th:src="${'http://image.tmdb.org/t/p/w92/' + genre.getProfilePath()}"></td>
+    </tr>
+    </tbody>
+
+
+  </table>
+</div>
+</body>
+</html>
